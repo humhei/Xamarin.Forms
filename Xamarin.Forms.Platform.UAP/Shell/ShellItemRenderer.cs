@@ -22,7 +22,7 @@ namespace Xamarin.Forms.Platform.UWP
 
 		public ShellItemRenderer()
 		{
-			RowDefinitions.Add(new Windows.UI.Xaml.Controls.RowDefinition() { Height = new Windows.UI.Xaml.GridLength(40, Windows.UI.Xaml.GridUnitType.Pixel) });
+			RowDefinitions.Add(new Windows.UI.Xaml.Controls.RowDefinition() { Height = new Windows.UI.Xaml.GridLength(1, Windows.UI.Xaml.GridUnitType.Auto) });
 			RowDefinitions.Add(new Windows.UI.Xaml.Controls.RowDefinition() { Height = new Windows.UI.Xaml.GridLength(1, Windows.UI.Xaml.GridUnitType.Star) });
 			RowDefinitions.Add(new Windows.UI.Xaml.Controls.RowDefinition() { Height = new Windows.UI.Xaml.GridLength(1, Windows.UI.Xaml.GridUnitType.Auto) });
 
@@ -33,7 +33,7 @@ namespace Xamarin.Forms.Platform.UWP
 				TextTrimming = Windows.UI.Xaml.TextTrimming.CharacterEllipsis,
 				TextWrapping = Windows.UI.Xaml.TextWrapping.NoWrap
 			};
-			_HeaderArea = new Windows.UI.Xaml.Controls.Grid() { Padding = new Windows.UI.Xaml.Thickness(10,0,10,0) };
+			_HeaderArea = new Windows.UI.Xaml.Controls.Grid() { Height=40, Padding = new Windows.UI.Xaml.Thickness(10,0,10,0) };
 			_HeaderArea.ColumnDefinitions.Add(new Windows.UI.Xaml.Controls.ColumnDefinition() { Width = new Windows.UI.Xaml.GridLength(1, Windows.UI.Xaml.GridUnitType.Star) });
 			_HeaderArea.ColumnDefinitions.Add(new Windows.UI.Xaml.Controls.ColumnDefinition() { Width = new Windows.UI.Xaml.GridLength(1, Windows.UI.Xaml.GridUnitType.Auto) });
 			_HeaderArea.Children.Add(_Title);
@@ -276,6 +276,24 @@ namespace Xamarin.Forms.Platform.UWP
 			else if (e.PropertyName == Page.TitleProperty.PropertyName)
 			{
 				UpdatePageTitle();
+			}
+			else if (e.PropertyName == Shell.NavBarIsVisibleProperty.PropertyName)
+			{
+				UpdateNavBarVisibility();
+			}
+		}
+
+		private void UpdateNavBarVisibility()
+		{
+			if (DisplayedPage == null || Shell.GetNavBarIsVisible(DisplayedPage))
+			{
+				_HeaderArea.Visibility = Windows.UI.Xaml.Visibility.Visible;
+				Shell.SetFlyoutBehavior(Shell.Current, Xamarin.Forms.FlyoutBehavior.Flyout);
+			}
+			else
+			{
+				_HeaderArea.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
+				Shell.SetFlyoutBehavior(Shell.Current, Xamarin.Forms.FlyoutBehavior.Disabled);
 			}
 		}
 
