@@ -3,10 +3,10 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:xf="using:Xamarin.Forms.Platform.UWP">
     <DataTemplate x:Key="ShellFlyoutBaseShellItemTemplate">
-        <NavigationViewItem Content="{Binding Title}" Icon="{Binding FlyoutIcon, Converter={StaticResource FileImageSourcePathConverter}}" />
+        <NavigationViewItem Content="{Binding Title}" Icon="{Binding FlyoutIcon, Converter={StaticResource ImageSourceIconElementConverter}}" />
     </DataTemplate>
     <DataTemplate x:Key="ShellFlyoutMenuItemTemplate">
-        <NavigationViewItem Content="{Binding Text}" Icon="{Binding Icon, Converter={StaticResource FileImageSourcePathConverter}}" />
+        <NavigationViewItem Content="{Binding Text}" Icon="{Binding Icon, Converter={StaticResource ImageSourceIconElementConverter}}" />
     </DataTemplate>
     <DataTemplate x:Key="ShellFlyoutSeperatorTemplate">
         <NavigationViewItemSeparator />
