@@ -18,7 +18,7 @@
             <Button AutomationId="DirectUpdate" HeightRequest="35" FontSize="10" Text="Clear CV selection and add Items 0 and 3" Clicked="DirectUpdateClicked" />
 
             <CollectionView x:Name="CollectionView" ItemsSource="{Binding Items}" 
-                            SelectionMode="Multiple" SelectedItems="{Binding SelectedItems}">
+                            SelectionMode="Extend" SelectedItems="{Binding SelectedItems}">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <StackLayout>
