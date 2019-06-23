@@ -30,9 +30,12 @@ namespace Xamarin.Forms
 				typeof(SelectableItemsView));
 
 		static readonly IList<object> s_empty = new List<object>(0);
+		IList<object> _selectedItems;
+
 
 		public SelectableItemsView()
 		{
+			_selectedItems = (IList<object>)DefaultValueCreator(this);
 		}
 
 		public object SelectedItem
@@ -41,9 +44,10 @@ namespace Xamarin.Forms
 			set => SetValue(SelectedItemProperty, value);
 		}
 
+
 		public IList<object> SelectedItems
 		{
-			get => (IList<object>)GetValue(SelectedItemsProperty);
+			get => _selectedItems;
 			set => SetValue(SelectedItemsProperty, new SelectionList(this, value));
 		}
 
@@ -96,15 +100,14 @@ namespace Xamarin.Forms
 			var selectableItemsView = (SelectableItemsView)bindable;
 			var oldSelection = (IList<object>)oldValue ?? s_empty;
 			var newSelection = (IList<object>)newValue ?? s_empty;
-
 			selectableItemsView.SelectedItemsPropertyChanged(oldSelection, newSelection);
 		}
 
 		internal void SelectedItemsPropertyChanged(IList<object> oldSelection, IList<object> newSelection)
 		{
-			SelectionPropertyChanged(this, new SelectionChangedEventArgs(oldSelection, newSelection));
-			
+			_selectedItems = newSelection;
 			OnPropertyChanged(SelectedItemsProperty.PropertyName);
+			SelectionPropertyChanged(this, new SelectionChangedEventArgs(oldSelection, newSelection));
 		}
 
 		static void SelectionPropertyChanged(SelectableItemsView selectableItemsView, SelectionChangedEventArgs args)
