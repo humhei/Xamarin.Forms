@@ -21,7 +21,7 @@ namespace Xamarin.Forms.Platform.UWP
 
 			if (args.OldElement != null)
 			{
-				((SelectableItemsView)args.OldElement).SelectionChanged -= OnSelectionChanged;
+				args.OldElement.SelectionChanged -= OnSelectionChanged;
 			}
 
 			base.OnElementChanged(args);
@@ -120,9 +120,11 @@ namespace Xamarin.Forms.Platform.UWP
 					case UWPListViewSelectionMode.None:
 						break;
 					case UWPListViewSelectionMode.Single:
-						object selectedItem = 
+						var selectedItem = 
 							ListViewBase.SelectedItem is ItemTemplatePair itemPair ? itemPair.Item : ListViewBase.SelectedItem;
+						Element.SelectionChanged -= OnSelectionChanged;
 						Element.SetValueFromRenderer(SelectableItemsView.SelectedItemProperty, selectedItem);
+						Element.SelectionChanged += OnSelectionChanged;
 						break;
 					case UWPListViewSelectionMode.Multiple:
 					case UWPListViewSelectionMode.Extended:
@@ -134,7 +136,9 @@ namespace Xamarin.Forms.Platform.UWP
 										return item;
 									})
 								.ToList();
+						Element.SelectionChanged -= OnSelectionChanged;
 						Element.SetValueFromRenderer(SelectableItemsView.SelectedItemsProperty, selectedItems);
+						Element.SelectionChanged += OnSelectionChanged;
 						break;
 					default:
 						break;
