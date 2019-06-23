@@ -4,6 +4,7 @@
 	{
 		None,
 		Single,
-		Multiple
+		Multiple,
+		Extend
 	}
 }

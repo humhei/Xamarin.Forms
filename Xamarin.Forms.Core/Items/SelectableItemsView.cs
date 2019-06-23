@@ -159,7 +159,7 @@ namespace Xamarin.Forms
 						previousSelection.Add(selectableItemsView.SelectedItem);
 					}
 					break;
-				case SelectionMode.Multiple:
+				case SelectionMode.Extend:
 					previousSelection = selectableItemsView.SelectedItems;
 					break;
 			}
@@ -174,7 +174,7 @@ namespace Xamarin.Forms
 						newSelection.Add(selectableItemsView.SelectedItem);
 					}
 					break;
-				case SelectionMode.Multiple:
+				case SelectionMode.Extend:
 					newSelection = selectableItemsView.SelectedItems;
 					break;
 			}

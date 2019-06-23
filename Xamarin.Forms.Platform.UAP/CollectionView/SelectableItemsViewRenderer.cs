@@ -84,7 +84,6 @@ namespace Xamarin.Forms.Platform.UWP
 					ListViewBase.SelectionChanged += OnNativeSelectionChanged;
 					break;
 				case UWPListViewSelectionMode.Multiple:
-					break;
 				case UWPListViewSelectionMode.Extended:
 					ListViewBase.SelectionChanged -= OnNativeSelectionChanged;
 					ListViewBase.SelectedItems.Clear();
@@ -126,7 +125,6 @@ namespace Xamarin.Forms.Platform.UWP
 						Element.SetValueFromRenderer(SelectableItemsView.SelectedItemProperty, selectedItem);
 						break;
 					case UWPListViewSelectionMode.Multiple:
-						break;
 					case UWPListViewSelectionMode.Extended:
 						var selectedItems =
 							ListViewBase.SelectedItems
@@ -156,6 +154,8 @@ namespace Xamarin.Forms.Platform.UWP
 					case SelectionMode.Single:
 						return UWPListViewSelectionMode.Single;
 					case SelectionMode.Multiple:
+						return UWPListViewSelectionMode.Multiple;
+					case SelectionMode.Extend:
 						return UWPListViewSelectionMode.Extended;
 					default:
 						return UWPListViewSelectionMode.None;
@@ -172,10 +172,9 @@ namespace Xamarin.Forms.Platform.UWP
 					case UWPListViewSelectionMode.Single:
 						return SelectionMode.Single;
 					case UWPListViewSelectionMode.Multiple:
-						/// xamarin forms currently only have three states selectionMode;
-						return SelectionMode.None;
-					case UWPListViewSelectionMode.Extended:
 						return SelectionMode.Multiple;
+					case UWPListViewSelectionMode.Extended:
+						return SelectionMode.Extend;
 					default:
 						return SelectionMode.None;
 				}

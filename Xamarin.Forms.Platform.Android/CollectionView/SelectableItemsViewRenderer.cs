@@ -59,7 +59,7 @@ namespace Xamarin.Forms.Platform.Android
 					SelectableItemsViewAdapter.MarkNativeSelection(selectedItem);
 					return;
 
-				case SelectionMode.Multiple:
+				case SelectionMode.Extend:
 					var selectedItems = SelectableItemsView.SelectedItems;
 					
 					foreach(var item in selectedItems)

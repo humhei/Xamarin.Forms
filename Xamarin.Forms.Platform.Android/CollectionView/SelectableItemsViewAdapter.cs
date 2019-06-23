@@ -91,7 +91,7 @@ namespace Xamarin.Forms.Platform.Android
 
 					return new int[1] { GetPositionForItem(selectedItem) };
 
-				case SelectionMode.Multiple:
+				case SelectionMode.Extend:
 					var selectedItems = SelectableItemsView.SelectedItems;
 					var result = new int[selectedItems.Count];
 
@@ -137,7 +137,7 @@ namespace Xamarin.Forms.Platform.Android
 				case SelectionMode.Single:
 					SelectableItemsView.SelectedItem = ItemsSource[adapterPosition];
 					return;
-				case SelectionMode.Multiple:
+				case SelectionMode.Extend:
 					var item = ItemsSource[adapterPosition];
 					var selectedItems = SelectableItemsView.SelectedItems;
 

@@ -56,7 +56,7 @@ namespace Xamarin.Forms.Platform.iOS
 				case SelectionMode.Single:
 					SelectableItemsView.SelectedItem = GetItemAtIndex(indexPath);
 					break;
-				case SelectionMode.Multiple:
+				case SelectionMode.Extend:
 					SelectableItemsView.SelectedItems.Add(GetItemAtIndex(indexPath));
 					break;
 			}
@@ -72,7 +72,7 @@ namespace Xamarin.Forms.Platform.iOS
 					break;
 				case SelectionMode.Single:
 					break;
-				case SelectionMode.Multiple:
+				case SelectionMode.Extend:
 					SelectableItemsView.SelectedItems.Remove(GetItemAtIndex(indexPath));
 					break;
 			}
@@ -105,7 +105,7 @@ namespace Xamarin.Forms.Platform.iOS
 					}
 				
 					return;
-				case SelectionMode.Multiple:
+				case SelectionMode.Extend:
 					SynchronizeNativeSelectionWithSelectedItems();
 					break;
 			}
@@ -125,7 +125,7 @@ namespace Xamarin.Forms.Platform.iOS
 					CollectionView.AllowsSelection = true;
 					CollectionView.AllowsMultipleSelection = false;
 					break;
-				case SelectionMode.Multiple:
+				case SelectionMode.Extend:
 					CollectionView.AllowsSelection = true;
 					CollectionView.AllowsMultipleSelection = true;
 					break;
