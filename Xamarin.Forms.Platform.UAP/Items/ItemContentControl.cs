@@ -70,7 +70,7 @@ namespace Xamarin.Forms.Platform.UWP
 			}
 		}
 
-		internal void Realize()
+		internal virtual void Realize()
 		{
 			var dataContext = FormsDataContext;
 			var formsTemplate = FormsDataTemplate;

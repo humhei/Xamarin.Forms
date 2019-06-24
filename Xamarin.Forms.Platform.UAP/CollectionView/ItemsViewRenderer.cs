@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
@@ -42,6 +44,24 @@ namespace Xamarin.Forms.Platform.UWP
 			}
 		}
 
+		protected virtual CollectionViewSource CreateCollectoinViewSource()
+		{
+			// TODO hartez 2018-05-22 12:59 PM Handle grouping
+			var itemsSource = Element.ItemsSource;
+
+			var itemTemplate = Element.ItemTemplate;
+
+			// The ItemContentControls need the actual data item and the template so they can inflate the template
+			// and bind the result to the data item.
+			// ItemTemplateEnumerator handles pairing them up for the ItemContentControls to consume
+			var source = itemTemplate == null ? itemsSource : (IEnumerable)TemplatedItemSourceFactory.Create(itemsSource, itemTemplate);
+			return new CollectionViewSource
+			{
+				Source = source,
+				IsSourceGrouped = false
+			};
+		}
+
 		protected virtual ListViewBase SelectLayout(IItemsLayout layoutSpecification)
 		{
 			switch (layoutSpecification)
@@ -64,31 +84,7 @@ namespace Xamarin.Forms.Platform.UWP
 				return;
 			}
 
-			// TODO hartez 2018-05-22 12:59 PM Handle grouping
-
-			var itemsSource = Element.ItemsSource;
-
-			var itemTemplate = Element.ItemTemplate;
-			if (itemTemplate != null)
-			{
-				// The ItemContentControls need the actual data item and the template so they can inflate the template
-				// and bind the result to the data item.
-				// ItemTemplateEnumerator handles pairing them up for the ItemContentControls to consume
-
-				_collectionViewSource = new CollectionViewSource
-				{
-					Source = TemplatedItemSourceFactory.Create(itemsSource, itemTemplate),
-					IsSourceGrouped = false
-				};
-			}
-			else
-			{
-				_collectionViewSource = new CollectionViewSource
-				{
-					Source = itemsSource,
-					IsSourceGrouped = false
-				};
-			}
+			_collectionViewSource = CreateCollectoinViewSource();
 
 			ListViewBase.ItemsSource = _collectionViewSource.View;
 		}
@@ -107,12 +103,9 @@ namespace Xamarin.Forms.Platform.UWP
 			{
 				ListViewBase.ItemTemplate = null;
 
-				if (itemsControlItemTemplate != null)
-				{
-					// We've removed the template; the itemssource should be updated
-					// TODO hartez 2018/06/25 21:25:24 I don't love that changing the template might reset the whole itemssource. We should think about a way to make that unnecessary	
-					UpdateItemsSource();
-				}
+				// We've removed the template; the itemssource should be updated
+				// TODO hartez 2018/06/25 21:25:24 I don't love that changing the template might reset the whole itemssource. We should think about a way to make that unnecessary	
+				UpdateItemsSource();
 
 				return;
 			}
@@ -199,7 +192,7 @@ namespace Xamarin.Forms.Platform.UWP
 			}
 
 			UpdateItemTemplate();
-			UpdateItemsSource();
+			//UpdateItemsSource();
 
 			// Listen for ScrollTo requests
 			newElement.ScrollToRequested += ScrollToRequested;
