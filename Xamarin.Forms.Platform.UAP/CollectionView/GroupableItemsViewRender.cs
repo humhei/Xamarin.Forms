@@ -50,6 +50,7 @@ namespace Xamarin.Forms.Platform.UWP
 						? typedItems 
 						: (IEnumerable)TemplatedItemSourceFactory.Create(typedItems, itemTemplate);
 
+
 					return _groupableItemsView.GroupHeaderTemplate == null 
 						? typedItems2 
 						: new GroupHeaderTemplatePair(items,typedItems2,_groupableItemsView.GroupHeaderTemplate,_groupableItemsView.GroupFooterTemplate);
