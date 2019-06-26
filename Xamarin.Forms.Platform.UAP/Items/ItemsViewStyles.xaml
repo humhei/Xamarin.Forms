@@ -25,8 +25,9 @@
 			
 		</local:ItemContentControl>
 	</DataTemplate>
-	
-	<Style TargetType="local:ItemContentControl" >
+
+
+    <Style TargetType="local:ItemContentControl" >
 		<Setter Property="Template">
 			<Setter.Value>
 				<ControlTemplate TargetType="local:ItemContentControl">
@@ -35,6 +36,13 @@
 			</Setter.Value>
 		</Setter>
 	</Style>
+
+    <DataTemplate x:Key="CollectionViewGroupHeaderDefaultTemplate">
+        <local:GroupHeaderContentControl x:Name="GroupHeaderContentControl" 
+									FormsDataTemplate="{Binding FormsGroupHeaderDataTemplate}" FormsDataContext="{Binding HeaderContext}">
+
+        </local:GroupHeaderContentControl>
+    </DataTemplate>
 
 </ResourceDictionary>
 
