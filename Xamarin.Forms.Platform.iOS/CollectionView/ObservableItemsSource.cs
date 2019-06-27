@@ -67,7 +67,11 @@ namespace Xamarin.Forms.Platform.iOS
 			return NSIndexPath.Create(-1, -1);
 		}
 
+<<<<<<< HEAD
 		public int GroupCount => _itemsSource.Count == 0 ? 0 : 1;
+=======
+		public int GroupCount => 1;
+>>>>>>> uwp-grouping
 
 		public int ItemCount => _itemsSource.Count;
 
@@ -75,7 +79,11 @@ namespace Xamarin.Forms.Platform.iOS
 		{
 			get
 			{
+<<<<<<< HEAD
 				if (indexPath.Section != _group)
+=======
+				if (indexPath.Section > 0)
+>>>>>>> uwp-grouping
 				{
 					throw new ArgumentOutOfRangeException(nameof(indexPath));
 				}

@@ -27,6 +27,13 @@ namespace Xamarin.Forms.Platform.iOS
 		{
 			ItemsView = itemsView;
 			ItemsSource = CreateItemsViewSource();
+<<<<<<< HEAD
+=======
+
+			// If we already have data, the UICollectionView will have items and we'll be safe to call
+			// ReloadData if the ItemsSource changes in the future (see UpdateItemsSource for more).
+			_safeForReload = ItemsSource?.ItemCount > 0;
+>>>>>>> uwp-grouping
 
 			UpdateLayout(layout);
 		}
@@ -91,6 +98,7 @@ namespace Xamarin.Forms.Platform.iOS
 		public override nint GetItemsCount(UICollectionView collectionView, nint section)
 		{
 			var count = ItemsSource.ItemCountInGroup(section);
+<<<<<<< HEAD
 
 			CheckForEmptySource();
 
@@ -101,6 +109,18 @@ namespace Xamarin.Forms.Platform.iOS
 		{
 			var totalCount = ItemsSource.ItemCount;
 
+=======
+
+			CheckForEmptySource();
+
+			return count;
+		}
+
+		void CheckForEmptySource()
+		{
+			var totalCount = ItemsSource.ItemCount;
+
+>>>>>>> uwp-grouping
 			if (_wasEmpty && totalCount > 0)
 			{
 				// We've moved from no items to having at least one item; it's likely that the layout needs to update
@@ -136,6 +156,14 @@ namespace Xamarin.Forms.Platform.iOS
 		}
 
 		protected virtual IItemsViewSource CreateItemsViewSource()
+<<<<<<< HEAD
+=======
+		{
+			return ItemsSourceFactory.Create(ItemsView.ItemsSource, CollectionView);
+		}
+
+		public virtual void UpdateItemsSource()
+>>>>>>> uwp-grouping
 		{
 			return ItemsSourceFactory.Create(ItemsView.ItemsSource, CollectionView);
 		}
@@ -149,7 +177,35 @@ namespace Xamarin.Forms.Platform.iOS
 
 		public override nint NumberOfSections(UICollectionView collectionView)
 		{
+<<<<<<< HEAD
 			return ItemsSource.GroupCount;
+=======
+			var enumerator = ItemsView.ItemsSource.GetEnumerator();
+
+			if (!enumerator.MoveNext())
+			{
+				// The source we're updating to is empty, so we can just update as normal; it won't crash
+				UpdateItemsSourceAndReload();
+			}
+			else
+			{
+				// Grab the first item from the new ItemsSource and create a usable source for the UICollectionView
+				// from that
+				var firstItem = new List<object> { enumerator.Current };
+				ItemsSource = ItemsSourceFactory.Create(firstItem, CollectionView);
+
+				var sectionToInsert = new NSIndexSet(0);
+
+				UIView.PerformWithoutAnimation(() =>
+				{
+					CollectionView.InsertSections(sectionToInsert);
+				});
+
+				// Okay, from now on we can just call ReloadData and things will work fine
+				_safeForReload = true;
+				UpdateItemsSource();
+			}
+>>>>>>> uwp-grouping
 		}
 
 		protected virtual void UpdateDefaultCell(DefaultCell cell, NSIndexPath indexPath)

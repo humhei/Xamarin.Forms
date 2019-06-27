@@ -42,7 +42,11 @@ namespace Xamarin.Forms.Platform.iOS
 			}
 		}
 
+<<<<<<< HEAD
 		public int GroupCount => Count == 0 ? 0 : 1;
+=======
+		public int GroupCount => 1;
+>>>>>>> uwp-grouping
 
 		public int ItemCount => Count;
 
