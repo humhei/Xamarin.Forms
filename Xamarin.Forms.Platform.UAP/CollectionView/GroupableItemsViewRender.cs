@@ -21,7 +21,7 @@ namespace Xamarin.Forms.Platform.UWP
 			{
 				if (_groupableItemsView.IsGrouped)
 				{
-					UpdateNativeGroupStyleSelector();
+					UpdateNativeGrouping();
 				}
 			}
 
@@ -41,33 +41,27 @@ namespace Xamarin.Forms.Platform.UWP
 
 			if (_groupableItemsView.IsGrouped)
 			{
-				var allItemsSource = itemsSource.Cast<object>().Select(items => 
-				{
-					var typedItems = (IEnumerable)items;
-					
-					var typedItems2 = 
-						itemTemplate == null 
-						? typedItems 
-						: (IEnumerable)TemplatedItemSourceFactory.Create(typedItems, itemTemplate);
+				var groupDataTemplate =
+					new GroupDataTemplate()
+					{
+						HeaderTemplate = _groupableItemsView.GroupHeaderTemplate,
+						FooterTemplate = _groupableItemsView.GroupFooterTemplate,
+						ItemTemplate = _groupableItemsView.ItemTemplate
+					};
 
-
-					return _groupableItemsView.GroupHeaderTemplate == null 
-						? typedItems2 
-						: new GroupHeaderTemplatePair(items,typedItems2,_groupableItemsView.GroupHeaderTemplate,_groupableItemsView.GroupFooterTemplate);
-				});
+				ICollection<IEnumerable> groupTemplatedItemsSource =
+					TemplatedGroupSuperItemSourceFactory.Create(itemsSource, groupDataTemplate);
 
 				return new CollectionViewSource
 				{
-					Source = allItemsSource,
+					Source = groupTemplatedItemsSource,
 					IsSourceGrouped = true
 				};
 			}
-
-			return new CollectionViewSource
+			else
 			{
-				Source = itemTemplate == null ? itemsSource : (IEnumerable)TemplatedItemSourceFactory.Create(itemsSource, itemTemplate),
-				IsSourceGrouped = false
-			};
+				return base.CreateCollectoinViewSource();
+			}
 		}
 
 		protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs changedProperty)
@@ -78,11 +72,11 @@ namespace Xamarin.Forms.Platform.UWP
 				 GroupableItemsView.GroupHeaderTemplateProperty,
 				 GroupableItemsView.GroupFooterTemplateProperty))
 			{
-				UpdateNativeGroupStyleSelector();
+				UpdateNativeGrouping();
 			}
 		}
 
-		void UpdateNativeGroupStyleSelector()
+		void UpdateNativeGrouping()
 		{
 			ListViewBase.GroupStyle.Clear();
 			if (_groupableItemsView.IsGrouped)

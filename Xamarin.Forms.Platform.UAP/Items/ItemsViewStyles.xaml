@@ -38,10 +38,16 @@
 	</Style>
 
     <DataTemplate x:Key="CollectionViewGroupHeaderDefaultTemplate">
-        <local:GroupHeaderContentControl x:Name="GroupHeaderContentControl" 
-									FormsDataTemplate="{Binding FormsGroupHeaderDataTemplate}" FormsDataContext="{Binding HeaderContext}">
+        <local:GroupSuperItemContentControl x:Name="GroupSuperItemContentControl" 
+									FormsDataTemplate="{Binding FormsGroupHeaderDataTemplate}" FormsDataContext="{Binding FormsDataContext}">
 
-        </local:GroupHeaderContentControl>
+        </local:GroupSuperItemContentControl>
+    </DataTemplate>
+    <DataTemplate x:Key="CollectionViewGroupFooterDefaultTemplate">
+        <local:GroupSuperItemContentControl x:Name="GroupSuperItemContentControl" 
+									FormsDataTemplate="{Binding FormsGroupFooterDataTemplate}" FormsDataContext="{Binding FormsDataContext}">
+
+        </local:GroupSuperItemContentControl>
     </DataTemplate>
 
 </ResourceDictionary>

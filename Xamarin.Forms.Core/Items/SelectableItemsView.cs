@@ -8,7 +8,7 @@ namespace Xamarin.Forms
 	{
 		public static readonly BindableProperty SelectionModeProperty =
 			BindableProperty.Create(nameof(SelectionMode), typeof(SelectionMode), typeof(SelectableItemsView),
-				SelectionMode.None, propertyChanged: SelectionModePropertyChanged );
+				SelectionMode.None, propertyChanged: SelectionModePropertyChanged);
 
 		public static readonly BindableProperty SelectedItemProperty =
 			BindableProperty.Create(nameof(SelectedItem), typeof(object), typeof(SelectableItemsView), default(object),
@@ -30,12 +30,9 @@ namespace Xamarin.Forms
 				typeof(SelectableItemsView));
 
 		static readonly IList<object> s_empty = new List<object>(0);
-		IList<object> _selectedItems;
-
 
 		public SelectableItemsView()
 		{
-			_selectedItems = (IList<object>)DefaultValueCreator(this);
 		}
 
 		public object SelectedItem
@@ -44,10 +41,9 @@ namespace Xamarin.Forms
 			set => SetValue(SelectedItemProperty, value);
 		}
 
-
 		public IList<object> SelectedItems
 		{
-			get => _selectedItems;
+			get => (IList<object>)GetValue(SelectedItemsProperty);
 			set => SetValue(SelectedItemsProperty, new SelectionList(this, value));
 		}
 
@@ -82,7 +78,7 @@ namespace Xamarin.Forms
 				return new SelectionList((SelectableItemsView)bindable);
 			}
 
-			if(value is SelectionList)
+			if (value is SelectionList)
 			{
 				return value;
 			}
@@ -100,14 +96,15 @@ namespace Xamarin.Forms
 			var selectableItemsView = (SelectableItemsView)bindable;
 			var oldSelection = (IList<object>)oldValue ?? s_empty;
 			var newSelection = (IList<object>)newValue ?? s_empty;
+
 			selectableItemsView.SelectedItemsPropertyChanged(oldSelection, newSelection);
 		}
 
 		internal void SelectedItemsPropertyChanged(IList<object> oldSelection, IList<object> newSelection)
 		{
-			_selectedItems = newSelection;
-			OnPropertyChanged(SelectedItemsProperty.PropertyName);
 			SelectionPropertyChanged(this, new SelectionChangedEventArgs(oldSelection, newSelection));
+
+			OnPropertyChanged(SelectedItemsProperty.PropertyName);
 		}
 
 		static void SelectionPropertyChanged(SelectableItemsView selectableItemsView, SelectionChangedEventArgs args)
@@ -123,7 +120,7 @@ namespace Xamarin.Forms
 					command.Execute(commandParameter);
 				}
 			}
-			
+
 			selectableItemsView.SelectionChanged?.Invoke(selectableItemsView, args);
 
 			selectableItemsView.OnSelectionChanged(args);

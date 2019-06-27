@@ -43,9 +43,17 @@
   <ItemGroup>
     <Compile Include="AccessibilityExtensions.cs" />
     <Compile Include="CollectionView\GroupableItemsViewRender.cs" />
-    <Compile Include="CollectionView\GroupedTemplatePair.cs" />
+    <Compile Include="Items\Grouping\GroupDataTemplate.cs" />
+    <Compile Include="Items\Grouping\ObservableGroupItemTemplateCollecton.cs" />
+    <Compile Include="Items\Grouping\TemplatedGroupItemSourceFactory.cs" />
+    <Compile Include="Items\Grouping\GroupItemTemplateEnumerator.cs" />
+    <Compile Include="Items\Grouping\TemplatedGroupSuperItemSourceFactory.cs" />
+    <Compile Include="Items\Grouping\GroupSuperItemTemplateEnumerator.cs" />
     <Compile Include="CollectionView\ItemsViewRenderer.cs" />
     <Compile Include="CollectionView\ItemViewGroupStyleSelector.cs" />
+    <Compile Include="Items\Grouping\ObservableGroupSuperItemTemplateCollection.cs" />
+    <Compile Include="Items\ItemTemplateEnumeratorAbstract.cs" />
+    <Compile Include="Items\ObservableItemTemplateCollectionAbstract.cs" />
     <Compile Include="CollectionView\SelectableItemsViewRenderer.cs" />
     <Compile Include="Extensions\ImageExtensions.cs" />
     <Compile Include="FormsCheckBox.cs" />
@@ -56,7 +64,7 @@
     <Compile Include="AlertDialog.cs" />
     <Compile Include="IDontGetFocus.cs" />
     <Compile Include="FontImageSourceHandler.cs" />
-    <Compile Include="Items\GroupHeaderContentControl.cs" />
+    <Compile Include="Items\Grouping\GroupSuperItemContentControl.cs" />
     <Compile Include="Items\ItemContentControl.cs" />
     <Compile Include="FormsPivot.cs" />
     <Compile Include="AlignmentExtensions.cs" />

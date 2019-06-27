@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Xamarin.Forms.Platform.UWP
 {
-	public class GroupHeaderContentControl : ItemContentControl
+	public class GroupSuperItemContentControl : ItemContentControl
 	{
 		internal override void Realize()
 		{
