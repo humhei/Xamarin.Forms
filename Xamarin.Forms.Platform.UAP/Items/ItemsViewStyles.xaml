@@ -25,23 +25,30 @@
 			
 		</local:ItemContentControl>
 	</DataTemplate>
-	
-	<Style TargetType="local:ItemContentControl" >
-		<Setter Property="HorizontalContentAlignment" Value="Left"/>
-		<Setter Property="VerticalContentAlignment" Value="Top"/>
-		<!--<Setter Property="Template">
+
+
+    <Style TargetType="local:ItemContentControl" >
+		<Setter Property="Template">
 			<Setter.Value>
 				<ControlTemplate TargetType="local:ItemContentControl">
-					<ContentPresenter x:Name="ContentPresenter" Content="{TemplateBinding Content}"
-									ContentTemplate="{TemplateBinding ContentTemplate}"
-									Margin="{TemplateBinding Padding}"
-									ContentTransitions="{TemplateBinding ContentTransitions}"
-									HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-									VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
-				</ControlTemplate>
+				    <ContentPresenter />
+                </ControlTemplate>
 			</Setter.Value>
-		</Setter>-->
+		</Setter>
 	</Style>
+
+    <DataTemplate x:Key="CollectionViewGroupHeaderDefaultTemplate">
+        <local:GroupSuperItemContentControl x:Name="GroupSuperItemContentControl" 
+									FormsDataTemplate="{Binding FormsGroupHeaderDataTemplate}" FormsDataContext="{Binding FormsDataContext}">
+
+        </local:GroupSuperItemContentControl>
+    </DataTemplate>
+    <DataTemplate x:Key="CollectionViewGroupFooterDefaultTemplate">
+        <local:GroupSuperItemContentControl x:Name="GroupSuperItemContentControl" 
+									FormsDataTemplate="{Binding FormsGroupFooterDataTemplate}" FormsDataContext="{Binding FormsDataContext}">
+
+        </local:GroupSuperItemContentControl>
+    </DataTemplate>
 
 </ResourceDictionary>
 
